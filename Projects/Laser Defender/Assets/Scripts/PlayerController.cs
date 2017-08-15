@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
     float xmin;
     float xmax;
 
+    public GameObject projectile;
+
     // Use this for initialization
     void Start () {
         float distance = transform.position.z-Camera.main.transform.position.z;
