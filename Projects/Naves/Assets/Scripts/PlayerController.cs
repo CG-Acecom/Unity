@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityStandardAssets.CrossPlatformInput;
 [System.Serializable]
 public class Boundary 
 {
@@ -21,20 +21,37 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
 	{
-		if (Input.GetButton("Fire1") && Time.time > nextFire) 
+        #if UNITY_ANDROID
+        //Debug.Log("Running on Android Device.");
+        if (CrossPlatformInputManager.GetButton("Fire1") && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            GetComponent<AudioSource>().Play();
+        }
+        #else
+        Debug.Log("Not running on mobile Device.");
+                if (Input.GetButton("Fire1") && Time.time > nextFire) 
 		{
 			nextFire = Time.time + fireRate;
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 			GetComponent<AudioSource>().Play ();
 		}
-	}
+        #endif
 
-	void FixedUpdate ()
+    }
+
+    void FixedUpdate ()
 	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
+        #if UNITY_ANDROID
+        float moveHorizontal = CrossPlatformInputManager.GetAxis("Horizontal");
+        float moveVertical = CrossPlatformInputManager.GetAxis("Vertical");
+        #else
+        float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
+        #endif
 
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+        Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 		GetComponent<Rigidbody>().velocity = movement * speed;
 		
 		GetComponent<Rigidbody>().position = new Vector3
