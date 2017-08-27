@@ -13,7 +13,11 @@ public class LevelManager : MonoBehaviour
     public void QuitRequest()
     {
         Debug.Log("I want to quit!");
-        Application.Quit();
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+		Application.Quit();
+        #endif
     }
 
     public void LoadNextLevel()
