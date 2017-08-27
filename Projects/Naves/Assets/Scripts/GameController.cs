@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
 	
 	void Start ()
 	{
+        UpdateSpawnValues();
 		gameOver = false;
 		restart = false;
         restartText.SetActive(false);
@@ -33,6 +34,13 @@ public class GameController : MonoBehaviour
 		StartCoroutine (SpawnWaves ());
 	}
 	
+    void UpdateSpawnValues()
+    {
+        Vector2 half = Utils.GetHalfDimensionsInWorldUnits();
+        spawnValues = new Vector3(half.x - 0.7f, 0f,half.y + 6f);
+
+    }
+
 	void Update ()
 	{
 		if (restart&& Input.GetKeyDown(KeyCode.R))

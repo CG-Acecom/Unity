@@ -18,8 +18,23 @@ public class PlayerController : MonoBehaviour
 	public float fireRate;
 	 
 	private float nextFire;
-	
-	void Update ()
+
+    void Start()
+    {
+        UpdateBoundary();
+        
+    }
+
+    void UpdateBoundary()
+    {
+        Vector2 half = Utils.GetHalfDimensionsInWorldUnits();
+
+        boundary.xMin = -half.x + 0.7f;
+        boundary.xMax = half.x - 0.7f;
+        boundary.zMin = -half.y+6f;
+        boundary.zMax = half.y-2f;
+    }
+    void Update ()
 	{
         #if UNITY_ANDROID
         //Debug.Log("Running on Android Device.");
