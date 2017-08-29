@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour {
 
-    public bool _autoPlay = true;
+    public bool autoPlay = false;
 
     private Ball _refBall;
 
     // Use this for initialization
     void Start () {
         _refBall = GameObject.FindObjectOfType<Ball>();
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (_autoPlay)
+        if (autoPlay)
         {
             AutoPlay();
         }else
@@ -29,7 +28,7 @@ public class Paddle : MonoBehaviour {
         Vector3 paddlePos = new Vector3(-1.35f, this.transform.position.y, 0f);
         Vector3 ballPosition=_refBall.transform.position;
 
-        paddlePos.x = Mathf.Clamp(ballPosition.x, -1.35f, 17.15f);
+        paddlePos.x = Mathf.Clamp(ballPosition.x, 0f, 15f);
         this.transform.position = paddlePos;
     }
 
