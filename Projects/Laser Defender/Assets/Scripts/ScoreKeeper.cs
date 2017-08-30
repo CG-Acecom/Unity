@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScoreKeeper : MonoBehaviour {
 
-    public int score = 0;
+    public static int score = 0;
     private Text myText;
 
     void Start()
@@ -19,7 +19,7 @@ public class ScoreKeeper : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	public void Reset () {
+	public static void Reset () {
         score = 0;
 	}
 }
