@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 public class MusicPlayer : MonoBehaviour {
     static MusicPlayer instance = null;
 
-    public AudioClip startClip;
-    public AudioClip endClip;
-    public AudioClip gameClip;
-
+    public AudioClip [] levelMusicChangeArray;
+    
     private AudioSource music;
 
     void Awake()
@@ -22,7 +20,7 @@ public class MusicPlayer : MonoBehaviour {
         else
         {
             instance = this;
-            GameObject.DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
             music = GetComponent<AudioSource>();
         }
     }
@@ -45,23 +43,15 @@ public class MusicPlayer : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("MusicPlayer: loaded level " + scene.buildIndex);
-        music.Stop();
-        switch (scene.buildIndex)
+        AudioClip thisLevelMusic = levelMusicChangeArray[scene.buildIndex];
+        Debug.Log("Playing clip: " + thisLevelMusic);
+        if (thisLevelMusic)
         {
-            case 0:
-                music.clip = startClip;
-                break;
-            case 1:
-                music.clip = gameClip;
-                break;
-            case 2:
-                music.clip = endClip;
-                break;
-            default: break;
+            music.Stop();
+            music.clip = thisLevelMusic;
+            music.loop = true;
+            music.Play();
         }
-        music.loop = true;
-        music.Play();
     }
 
 }
