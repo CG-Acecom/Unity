@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
 	public GameObject[] hazards;
-	public Vector3 spawnValues;
+    public Boundary boundary;
+    public Vector3 spawnValues;
 	public int hazardCount;
 	public float spawnWait;
 	public float startWait;
@@ -19,6 +20,8 @@ public class GameController : MonoBehaviour
 	private bool gameOver;
 	private bool restart;
 	private int score;
+    private Vector2 xlimits;
+    private Vector2 zlimits;
 	
 	void Start ()
 	{
@@ -27,18 +30,17 @@ public class GameController : MonoBehaviour
 		restart = false;
         restartText.SetActive(false);
         gameOverText.gameObject.SetActive(false);
-        //restartText.text = "";
-		gameOverText.text = "";
+        gameOverText.text = "";
 		score = 0;
+        xlimits = boundary.GetXLimits(12.0f / 15, 12.0f / 15);
 		UpdateScore ();
 		StartCoroutine (SpawnWaves ());
 	}
 	
     void UpdateSpawnValues()
     {
-        Vector2 half = Utils.GetHalfDimensionsInWorldUnits();
-        spawnValues = new Vector3(half.x - 0.7f, 0f,half.y + 6f);
-
+        xlimits = boundary.GetXLimits(12.0f / 15, 12.0f / 15);
+        zlimits = boundary.GetZLimits(1, 1.6f);
     }
 
 	void Update ()
@@ -61,8 +63,8 @@ public class GameController : MonoBehaviour
 			for (int i = 0; i < hazardCount; i++)
 			{
 				GameObject hazard = hazards [Random.Range (0, hazards.Length)];
-				Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-				Quaternion spawnRotation = Quaternion.identity;
+                Vector3 spawnPosition = new Vector3(Random.Range(xlimits.x, xlimits.y), 0.0f, zlimits.y);
+                Quaternion spawnRotation = Quaternion.identity;
 				Instantiate (hazard, spawnPosition, spawnRotation);
 				yield return new WaitForSeconds (spawnWait);
 			}
