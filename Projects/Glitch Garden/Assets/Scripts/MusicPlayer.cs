@@ -26,7 +26,7 @@ public class MusicPlayer : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-
+        music = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -52,6 +52,11 @@ public class MusicPlayer : MonoBehaviour {
             music.loop = true;
             music.Play();
         }
+    }
+
+    public void ChangeVolume(float volume)
+    {
+        music.volume = volume;
     }
 
 }
