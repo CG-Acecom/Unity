@@ -4,8 +4,8 @@ using System.Collections;
 public class EvasiveManeuver : MonoBehaviour
 {
 	public Boundary boundary;
-	public float tilt;
-	public float dodge;
+	public float tilt ;
+	public float dodge = 15;
 	public float smoothing;
 	public Vector2 startWait;
 	public Vector2 maneuverTime;
