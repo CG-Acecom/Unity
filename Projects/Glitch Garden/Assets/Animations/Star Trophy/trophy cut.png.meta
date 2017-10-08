@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 607b08d4d523d4ca0aef488658c68c2e
+timeCreated: 1507428765
+licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: trophy top
@@ -51,6 +53,14 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
     maxTextureSize: 1024
     textureFormat: -1
     textureCompression: 1
